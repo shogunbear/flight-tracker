@@ -1,0 +1,42 @@
+name: Docker Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install pytest
+    
+    - name: Build Docker image
+      run: docker-compose build
+    
+    - name: Start containers
+      run: docker-compose up -d
+    
+    - name: Check if container is running
+      run: docker ps
+    
+    - name: Check application health
+      run: |
+        sleep 5  # Give the application time to start
+        curl -I http://localhost:8888
+    
+    - name: Stop containers
+      run: docker-compose down
