@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  flight-app:
+    build: .
+    container_name: flight-tracker
+    ports:
+      - "8888:5000"
+      - "2222:22"
+    volumes:
+      - ./mock_flight_data.json:/app/mock_flight_data.json
+    restart: unless-stopped
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=production
+      - AVIATION_STACK_API_KEY=469f1ae884f8e4eb3ad55b63fb41ba03

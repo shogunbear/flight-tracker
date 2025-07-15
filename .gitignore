@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Docker
+.docker/
+
+# Environment variables
+.env
+
+# Generated data
+mock_flight_data.json
+
+# Logs
+*.log
+
+# Mac specific
+.DS_Store
+
+# Editor configs
+.vscode/
+.idea/
